@@ -2225,7 +2225,7 @@ public static class MECExtensionMethods2
     /// <returns>The modified coroutine handle.</returns>
     public static IEnumerator<double> CancelWith(this IEnumerator<double> coroutine, Node node)
     {
-        while (MEC.Timing.MainThread != System.Threading.Thread.CurrentThread || (IsNodeAlive(node) && coroutine.MoveNext()))
+        while ((IsNodeAlive(node) && coroutine.MoveNext() || MEC.Timing.MainThread != System.Threading.Thread.CurrentThread))
             yield return coroutine.Current;
     }
 
@@ -2238,7 +2238,7 @@ public static class MECExtensionMethods2
     /// <returns>The modified coroutine handle.</returns>
     public static IEnumerator<double> CancelWith(this IEnumerator<double> coroutine, Node node1, Node node2)
     {
-        while (MEC.Timing.MainThread != System.Threading.Thread.CurrentThread || (IsNodeAlive(node1) && IsNodeAlive(node2) && coroutine.MoveNext()))
+        while ((IsNodeAlive(node1) && IsNodeAlive(node2) && coroutine.MoveNext()) || MEC.Timing.MainThread != System.Threading.Thread.CurrentThread)
             yield return coroutine.Current;
     }
 
@@ -2253,7 +2253,7 @@ public static class MECExtensionMethods2
     public static IEnumerator<double> CancelWith(this IEnumerator<double> coroutine,
         Node node1, Node node2, Node node3)
     {
-        while (MEC.Timing.MainThread != System.Threading.Thread.CurrentThread || (IsNodeAlive(node1) && IsNodeAlive(node2) && IsNodeAlive(node3) && coroutine.MoveNext()))
+        while ((IsNodeAlive(node1) && IsNodeAlive(node2) && IsNodeAlive(node3) && coroutine.MoveNext()) || MEC.Timing.MainThread != System.Threading.Thread.CurrentThread)
             yield return coroutine.Current;
     }
 }
